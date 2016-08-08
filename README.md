@@ -110,7 +110,6 @@ npm install vue-bootstrap-table
 
 If you have a feature request, please add it as an issue or make a pull request.
 
-
 ## TODO List
 
 - [x] Basic table
