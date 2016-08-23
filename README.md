@@ -181,6 +181,6 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 ## Changelog
 
-### 0.1.1
+### 1.0.0
 
 * First version
