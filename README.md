@@ -3,7 +3,7 @@
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
 
-[**[Demo](https://jbaysolutions.github.io/vue-bootstrap-table/examples/01-basic.html) | [Changelog](/CHANGELOG.md)**]
+### [Demo](https://jbaysolutions.github.io/vue-bootstrap-table/examples/01-basic.html)
 
 <!--
 ## Table of Contents
@@ -37,14 +37,17 @@ TODO UPDATE CHANGELOG
 
 ## Installation
 
-Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue-bootstrap-table) package using [npm](https://www.npmjs.com/):
+Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue-bootstrap-table2) package using [npm](https://www.npmjs.com/):
 
-	npm install vue-bootstrap-table
+	npm install vue-bootstrap-table2
+
+
+Or import the js script on your html (use the files from the dist folder):
+ 
+    <script src="vue-bootstrap-table.js"></script>
 
 
 ## Usage
-
-npm install vue-bootstrap-table
 
 ```javascript
 
@@ -105,6 +108,52 @@ npm install vue-bootstrap-table
     </vue-bootstrap-table>
 ```` 
 
+## Props
+
+```javascript
+
+    props: {
+        /**
+         * The column titles, required
+         */
+        columns: {
+            type: Array,
+            required: true,
+        },
+        /**
+         * The rows, an Array of objects
+         */
+        values: {
+            type: Array,
+            required: true,
+        },
+        /**
+         * Enable/disable table sorting, optional, default true
+         */
+        sortable: {
+            type: Boolean,
+            required: false,
+            default: true,
+        },
+        /**
+         * Enable/disable input filter, optional, default false
+         */
+        showFilter: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        /**
+         * Enable/disable column picker to show/hide table columns, optional, default false
+         */
+        showColumnPicker: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+
+```
 
 ## Contribute
 
@@ -121,3 +170,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [ ] Correct date sorting
 - [ ] Keyboard navigation
 - [ ] Editing
+
+
+## Changelog
+
+### 0.1.1
+
+* First version

@@ -114,24 +114,39 @@
         name: "VueBootstrapTable",
         components: {},
         props: {
+            /**
+             * The column titles, required
+             */
             columns: {
                 type: Array,
                 required: true,
             },
+            /**
+             * The rows, an Array of objects
+             */
             values: {
                 type: Array,
                 required: true,
             },
+            /**
+             * Enable/disable table sorting, optional, default true
+             */
             sortable: {
                 type: Boolean,
                 required: false,
                 default: true,
             },
+            /**
+             * Enable/disable input filter, optional, default false
+             */
             showFilter: {
                 type: Boolean,
                 required: false,
                 default: false,
             },
+            /**
+             * Enable/disable column picker to show/hide table columns, optional, default false
+             */
             showColumnPicker: {
                 type: Boolean,
                 required: false,
