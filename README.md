@@ -35,6 +35,12 @@ TODO UPDATE CHANGELOG
 * Select display columns
 
 
+## Requirements
+
+* Vue 1.* (tested with 1.0.26)
+* Bootstrap 3 css
+
+
 ## Installation
 
 Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue-bootstrap-table2) package using [npm](https://www.npmjs.com/):
@@ -42,7 +48,7 @@ Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue-boot
 	npm install vue-bootstrap-table2
 
 
-Or import the js script on your html (use the files from the dist folder):
+Or add the js script to your html (download from [releases](https://github.com/jbaysolutions/vue-bootstrap-table/releases)):
  
     <script src="vue-bootstrap-table.js"></script>
 
@@ -166,8 +172,9 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [x] Sorting
 - [x] Filter
 - [x] Column picker
+- [ ] Pagination
 - [ ] Responsive
-- [ ] Correct date sorting
+- [ ] Dates sorting
 - [ ] Keyboard navigation
 - [ ] Editing
 
