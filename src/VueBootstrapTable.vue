@@ -33,21 +33,21 @@
         <div class="col-sm-12">
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
-                <tr>
-                    <th v-for="column in displayCols | filterBy true in 'visible'" @click="sortBy(column.title)"
-                        track-by="$index"
-                        :class="getClasses(column.title)">
-                        {{ column.title }}
-                    </th>
-                </tr>
+                    <tr>
+                        <th v-for="column in displayCols | filterBy true in 'visible'" @click="sortBy(column.title)"
+                            track-by="$index"
+                            :class="getClasses(column.title)">
+                            {{ column.title }}
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
-                    <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
-                        v-show="column.visible">
-                        {{ entry[column.title] }}
-                    </td>
-                </tr>
+                    <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
+                        <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
+                            v-show="column.visible">
+                            {{ entry[column.title] }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -114,24 +114,39 @@
         name: "VueBootstrapTable",
         components: {},
         props: {
+            /**
+             * The column titles, required
+             */
             columns: {
                 type: Array,
                 required: true,
             },
+            /**
+             * The rows, an Array of objects
+             */
             values: {
                 type: Array,
                 required: true,
             },
+            /**
+             * Enable/disable table sorting, optional, default true
+             */
             sortable: {
                 type: Boolean,
                 required: false,
                 default: true,
             },
+            /**
+             * Enable/disable input filter, optional, default false
+             */
             showFilter: {
                 type: Boolean,
                 required: false,
                 default: false,
             },
+            /**
+             * Enable/disable column picker to show/hide table columns, optional, default false
+             */
             showColumnPicker: {
                 type: Boolean,
                 required: false,
@@ -162,6 +177,7 @@
             values: function () {
             },
             columns: function () {
+                this.displayCols = [];
                 var self = this;
                 this.columns.forEach(function (column) {
                     var obj = {};
