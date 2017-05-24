@@ -34,6 +34,7 @@ TODO UPDATE CHANGELOG
 * Searchable
 * Select display columns
 * Pagination
+* On Table Editing
 
 
 ## Requirements
@@ -179,6 +180,28 @@ Or add the js script to your html (download from [releases](https://github.com/j
 
 ```
 
+## Events
+
+* `cellDataModifiedEvent` - When a cell is edited, an `cellDataModifiedEvent` event is dispatched.
+
+### Handling `cellDataModifiedEvent`
+
+```javascript
+
+    events: {
+        cellDataModifiedEvent: function( originalValue, newValue, columnTitle, entry) {
+
+            this.logging.push("Original Value : " + originalValue +
+                         " | New Value : " + newValue +
+                         " | Column : " + columnTitle +
+                         " | Complete Entry : " +  entry );
+
+        },
+    },
+```
+
+
+
 ## Contribute
 
 If you have a feature request, please add it as an issue or make a pull request.
@@ -194,7 +217,7 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [ ] Responsive
 - [ ] Dates sorting
 - [ ] Keyboard navigation
-- [ ] Editing
+- [x] Editing
 
 
 ## Changelog

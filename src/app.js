@@ -9,6 +9,7 @@ new Vue({
         VueBootstrapTable,
     },
     data: {
+        logging: [],
         showFilter: true,
         showPicker: true,
         paginated: true,
@@ -88,5 +89,13 @@ new Vue({
         togglePagination: function () {
             this.paginated = !this.paginated;
         }
+    },
+    events: {
+        cellDataModifiedEvent: function( originalValue, newValue, columnTitle, entry) {
+            this.logging.push("Original Value : " + originalValue +
+                         " | New Value : " + newValue +
+                         " | Column : " + columnTitle +
+                         " | Complete Entry : " +  entry );
+        },
     },
 });
