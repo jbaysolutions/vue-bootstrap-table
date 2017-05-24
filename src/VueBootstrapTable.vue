@@ -51,6 +51,25 @@
                 </tbody>
             </table>
         </div>
+        <div v-if="paginated" class="col-sm-12">
+            <div class="btn-toolbar" role="toolbar" aria-label="pagination bar">
+              <div class="btn-group" role="group" aria-label="first page">
+                <button type="button" class="btn btn-default" @click="this.page=1">&laquo;</button>
+              </div>
+              <div class="btn-group" role="group" aria-label="pages">
+                <button v-for="index in validPageNumbers"
+                    type="button" class="btn btn-default"
+                    v-bind:class="{ active: this.page===index }"
+                    @click="this.page=index">
+                        {{index}}
+                </button>
+              </div>
+              <div class="btn-group" v-if="showPaginationEtc">...</div>
+              <div class="btn-group" role="group" aria-label="last page">
+                <button type="button" class="btn btn-default" @click="this.page=this.maxPage">&raquo;</button>
+              </div>
+            </div>
+        </div>
     </div>
 </template>
 <style>
@@ -152,6 +171,23 @@
                 required: false,
                 default: false,
             },
+            /**
+             * Enable/disable pagination for the table, optional, default false
+             */
+            paginated: {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+            /**
+             * If pagination is enabled defining the page size, optional, default 10
+             */
+            pageSize: {
+                type: Number,
+                required: false,
+                default: 10,
+            },
+
         },
         data: function () {
             return {
@@ -161,6 +197,7 @@
                 sortOrders: {},
                 columnMenuOpen: false,
                 displayCols: [],
+                page: 1,
             };
         },
         ready: function () {
@@ -203,7 +240,39 @@
                 var result = this.$options.filters.filterBy(this.values, this.filterKey);
                 result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);
                 this.filteredSize = result.length;
+                if(this.paginated) {
+                    var startIndex = (this.page-1)*this.pageSize;
+                    var tIndex = 0;
+                    var tempResult = [];
+                    while (tIndex < this.pageSize){
+                        if ( typeof result[startIndex+tIndex] !== "undefined")
+                            tempResult.push( result[startIndex+tIndex]);
+                        tIndex++;
+                    }
+                    return tempResult;
+                }
                 return result;
+            },
+            validPageNumbers: function () {
+                // 5 page max
+                var result = [];
+                var start = 1;
+                if (this.page > 3)
+                    start = this.page-2;
+                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {
+                    result.push(start);
+                    i++;
+                }
+                return result;
+            },
+            maxPage: function () {
+                return Math.ceil(this.filteredSize / this.pageSize);
+            },
+            showPaginationEtc: function () {
+                var temp = 1;
+                if (this.page > 3)
+                    temp = this.page-2;
+                return ( (temp+4) < this.maxPage  );
             },
         },
         methods: {
