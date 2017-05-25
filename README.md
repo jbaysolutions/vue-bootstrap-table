@@ -71,12 +71,18 @@ Or add the js script to your html (download from [releases](https://github.com/j
                 },
                 {
                     title:"name",
+                    visible: true,
+                    editable: true,
                 },
                 {
                     title:"age",
+                    visible: true,
+                    editable: true,
                 },
                 {
                     title:"country",
+                    visible: true,
+                    editable: true,
                 }
             ],
             values: [
@@ -117,7 +123,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
     </vue-bootstrap-table>
 ```` 
 
-## Props
+## Configuration Props
 
 ```javascript
 
@@ -180,6 +186,37 @@ Or add the js script to your html (download from [releases](https://github.com/j
 
 ```
 
+### Column Array Definition
+
+The `columns` array takes object of type:
+
+```javascript
+{
+    title:"country",  // Mandatory: Title to be presented on the Table
+    visible: true,    // Optional: column visible? (Default: true)
+    editable: false,  // Optional: column cells editable? (Default: false)
+}
+```
+
+#### Column Definition Examples
+
+Column with Title "Id" , which is visible but not editable:
+
+```javascript
+{
+    title:"Id",
+}
+```
+Column with Title "Name" , which is visible and editable:
+
+```javascript
+{
+    title:"Name",
+    visible: true,
+    editable: true,
+}
+```
+
 ## Events
 
 * `cellDataModifiedEvent` - When a cell is edited, an `cellDataModifiedEvent` event is dispatched.
@@ -200,8 +237,6 @@ Or add the js script to your html (download from [releases](https://github.com/j
     },
 ```
 
-
-
 ## Contribute
 
 If you have a feature request, please add it as an issue or make a pull request.
@@ -214,13 +249,18 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [x] Filter
 - [x] Column picker
 - [x] Pagination
+- [x] Editing
+- [ ] Ajax
 - [ ] Responsive
 - [ ] Dates sorting
 - [ ] Keyboard navigation
-- [x] Editing
 
 
 ## Changelog
+
+### 1.0.1
+
+* Bug fix
 
 ### 1.0.0
 
