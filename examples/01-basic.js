@@ -14,15 +14,23 @@ new Vue({
         columns: [
             {
                 title:"id",
+                visible: true,
+                editable: false,
             },
             {
                 title:"name",
+                visible: true,
+                editable: true,
             },
             {
                 title:"age",
+                visible: true,
+                editable: true,
             },
             {
                 title:"country",
+                visible: true,
+                editable: true,
             }
         ],
         values: [

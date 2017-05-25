@@ -19,6 +19,8 @@ new Vue({
             },
             {
                 title: "name",
+                visible: true,
+                editable: true,
             }
         ],
         values: [

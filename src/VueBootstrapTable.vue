@@ -45,7 +45,8 @@
                     <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
                         <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
                             v-show="column.visible">
-                            <value-field-section
+                            <span v-if="!column.editable"> {{ entry[column.title] }} </span>
+                            <value-field-section v-else
                                 v-bind:entry="entry"
                                 :columntitle="column.title"
                                 :value="entry[column.title]"><value-field-section>
@@ -123,6 +124,11 @@
         content: "\e156";
     }
 
+
+    .vue-table .editableField {
+        cursor:pointer;
+    }
+
     /*.vue-table .selected-cell {
         background-color: #F7C072;
     }
@@ -135,11 +141,12 @@
 
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
-      template: '<span v-if="!enabled" @dblclick="toggleInput"> {{ value }} </span>'+
+      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ value }} </span>'+
           '<div v-if="enabled" class="input-group">'+
-          '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis">'+
+          '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
           '  <span class="input-group-btn">'+
-          '    <button class="btn btn-primary" type="button" @click="saveThis" >Go!</button>'+
+          '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
+          '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
           '  </span>'+
           '</div>',
       props: ['entry','value','columntitle'],
@@ -153,6 +160,10 @@
             var originalValue = this.entry[this.columntitle];
             this.entry[this.columntitle] = this.value;
             this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columntitle,  this.entry);
+            this.enabled = !this.enabled;
+        },
+        cancelThis: function () {
+            this.value = this.entry[this.columntitle];
             this.enabled = !this.enabled;
         },
         toggleInput: function () {
@@ -240,7 +251,14 @@
             this.columns.forEach(function (column) {
                 var obj = {};
                 obj.title = column.title;
-                obj.visible = true;
+                if ( typeof column.visible !== "undefined")
+                    obj.visible = column.visible;
+                else
+                    obj.visible = true;
+                if ( typeof column.editable !== "undefined")
+                    obj.editable = column.editable;
+                else
+                    obj.editable = false;
                 self.displayCols.push(obj);
             });
         },
