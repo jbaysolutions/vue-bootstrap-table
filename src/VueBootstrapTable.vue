@@ -133,7 +133,7 @@
 </style>
 <script>
 
-
+    /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
       template: '<span v-if="!enabled" @dblclick="toggleInput"> {{ value }} </span>'+
           '<div v-if="enabled" class="input-group">'+
@@ -267,7 +267,11 @@
                 this.displayCols.forEach(function (column) {
                     column.visible = true;
                 });
-            }
+            },
+            filterKey: function () {
+                // filter was updated, so resetting to page 1
+                this.page = 1;
+            },
         },
         computed: {
             filteredValues: function () {
