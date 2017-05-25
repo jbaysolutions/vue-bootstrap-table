@@ -258,6 +258,12 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 ## Changelog
 
+### 1.0.2
+
+* Pagination working
+* Editing cells on the table
+* Configuration Improvements
+
 ### 1.0.1
 
 * Bug fix
