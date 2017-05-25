@@ -45,7 +45,10 @@
                     <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
                         <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
                             v-show="column.visible">
-                            {{ entry[column.title] }}
+                            <value-field-section
+                                v-bind:entry="entry"
+                                :columntitle="column.title"
+                                :value="entry[column.title]"><value-field-section>
                         </td>
                     </tr>
                 </tbody>
@@ -129,9 +132,40 @@
     }*/
 </style>
 <script>
+
+    /* Field Section used for displaying and editing value of cell */
+    var valueFieldSection = {
+      template: '<span v-if="!enabled" @dblclick="toggleInput"> {{ value }} </span>'+
+          '<div v-if="enabled" class="input-group">'+
+          '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis">'+
+          '  <span class="input-group-btn">'+
+          '    <button class="btn btn-primary" type="button" @click="saveThis" >Go!</button>'+
+          '  </span>'+
+          '</div>',
+      props: ['entry','value','columntitle'],
+      data: function () {
+          return {
+            enabled: false,
+          }
+      },
+      methods: {
+        saveThis: function () {
+            var originalValue = this.entry[this.columntitle];
+            this.entry[this.columntitle] = this.value;
+            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columntitle,  this.entry);
+            this.enabled = !this.enabled;
+        },
+        toggleInput: function () {
+            this.enabled=!this.enabled
+        },
+      }
+    };
+
     export default {
         name: "VueBootstrapTable",
-        components: {},
+        components: {
+            'value-field-section': valueFieldSection,
+        },
         props: {
             /**
              * The column titles, required
@@ -233,7 +267,11 @@
                 this.displayCols.forEach(function (column) {
                     column.visible = true;
                 });
-            }
+            },
+            filterKey: function () {
+                // filter was updated, so resetting to page 1
+                this.page = 1;
+            },
         },
         computed: {
             filteredValues: function () {
@@ -324,6 +362,7 @@
                 this.columnMenuOpen = false;
             },
         },
-        events: {}
+        events: {
+        }
     }
 </script>
