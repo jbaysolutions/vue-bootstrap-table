@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -64,28 +64,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = _VueBootstrapTable2.default;
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
 	__webpack_require__(2)
 	__vue_script__ = __webpack_require__(6)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\VueBootstrapTable.vue: named exports in *.vue files are ignored.")}
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+	  console.warn("[vue-loader] src/VueBootstrapTable.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(7)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-6fa2a138/VueBootstrapTable.vue"
+	  var id = "_v-0b1edc8c/VueBootstrapTable.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -93,9 +98,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	})()}
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
@@ -109,8 +114,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/vue-loader/lib/style-rewriter.js!./../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VueBootstrapTable.vue", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/vue-loader/lib/style-rewriter.js!./../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VueBootstrapTable.vue");
+			module.hot.accept("!!../node_modules/css-loader/index.js?sourceMap!../node_modules/vue-loader/lib/style-rewriter.js!../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VueBootstrapTable.vue", function() {
+				var newContent = require("!!../node_modules/css-loader/index.js?sourceMap!../node_modules/vue-loader/lib/style-rewriter.js!../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VueBootstrapTable.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -119,23 +124,23 @@ return /******/ (function(modules) { // webpackBootstrap
 		module.hot.dispose(function() { update(); });
 	}
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vue-table {\n\n}\n\ntable.vue-table thead > tr > th {\n    cursor: pointer;\n    padding-right: 30px !important;\n}\n\n/*.vue-table th.active {\n    color: red;\n}*/\n\n.vue-table .arrow {\n    opacity: 1;\n    position: relative;\n}\n\n.vue-table .arrow:after {\n    position: absolute;\n    bottom: 8px;\n    right: 8px;\n    display: block;\n    font-family: 'Glyphicons Halflings';\n    content: \"\\E150\";\n    /*\n    display: inline-block;\n    vertical-align: middle;\n    width: 0;\n    height: 0;\n    margin-left: 5px;\n    opacity: 0.66;*/\n}\n\n.vue-table .arrow.asc:after {\n    content: \"\\E155\";\n    /*\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-bottom: 4px solid #000;\n    */\n}\n\n.vue-table .arrow.dsc:after {\n    content: \"\\E156\";\n}\n\n/*.vue-table .selected-cell {\n    background-color: #F7C072;\n}\n\n.vue-table .selected-row {\n    background-color: #FAE1BE !important;\n}*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?4bf02cda"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAwDA;;CAEA;;AAEA;IACA,gBAAA;IACA,+BAAA;CACA;;AAEA;;GAEA;;AAEA;IACA,WAAA;IACA,mBAAA;CACA;;AAEA;IACA,mBAAA;IACA,YAAA;IACA,WAAA;IACA,eAAA;IACA,oCAAA;IACA,iBAAA;IACA;;;;;;oBAMA;CACA;;AAEA;IACA,iBAAA;IACA;;;;MAIA;CACA;;AAEA;IACA,iBAAA;CACA;;AAEA;;;;;;GAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\r\n    <div @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\r\n        <!--<pre>{{columns | json}}</pre>-->\r\n        <!--<pre>{{$data | json}}</pre>-->\r\n        <div class=\"col-sm-6\">\r\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\r\n                <div class=\"input-group\">\r\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\r\n                    <div class=\"input-group-addon\">\r\n                        <i class=\"glyphicon glyphicon-search\"></i>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-sm-6\">\r\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\r\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\r\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\r\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\r\n                            aria-haspopup=\"true\">\r\n                        Columns <span class=\"caret\"></span>\r\n                    </button>\r\n                    <ul class=\"dropdown-menu\">\r\n                        <li v-for=\"column in displayCols\">\r\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\r\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\r\n                            </a>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-sm-12\">\r\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th v-for=\"column in displayCols | filterBy true in 'visible'\" @click=\"sortBy(column.title)\"\r\n                            track-by=\"$index\"\r\n                            :class=\"getClasses(column.title)\">\r\n                            {{ column.title }}\r\n                        </th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody>\r\n                    <tr v-for=\"entry in filteredValues | orderBy sortKey sortOrders[sortKey]\" track-by=\"$index\">\r\n                        <td v-for=\"column in displayCols | filterBy true in 'visible'\" track-by=\"$index\"\r\n                            v-show=\"column.visible\">\r\n                            {{ entry[column.title] }}\r\n                        </td>\r\n                    </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</template>\r\n<style>\r\n    .vue-table {\r\n\r\n    }\r\n\r\n    table.vue-table thead > tr > th {\r\n        cursor: pointer;\r\n        padding-right: 30px !important;\r\n    }\r\n\r\n    /*.vue-table th.active {\r\n        color: red;\r\n    }*/\r\n\r\n    .vue-table .arrow {\r\n        opacity: 1;\r\n        position: relative;\r\n    }\r\n\r\n    .vue-table .arrow:after {\r\n        position: absolute;\r\n        bottom: 8px;\r\n        right: 8px;\r\n        display: block;\r\n        font-family: 'Glyphicons Halflings';\r\n        content: \"\\e150\";\r\n        /*\r\n        display: inline-block;\r\n        vertical-align: middle;\r\n        width: 0;\r\n        height: 0;\r\n        margin-left: 5px;\r\n        opacity: 0.66;*/\r\n    }\r\n\r\n    .vue-table .arrow.asc:after {\r\n        content: \"\\e155\";\r\n        /*\r\n        border-left: 4px solid transparent;\r\n        border-right: 4px solid transparent;\r\n        border-bottom: 4px solid #000;\r\n        */\r\n    }\r\n\r\n    .vue-table .arrow.dsc:after {\r\n        content: \"\\e156\";\r\n    }\r\n\r\n    /*.vue-table .selected-cell {\r\n        background-color: #F7C072;\r\n    }\r\n\r\n    .vue-table .selected-row {\r\n        background-color: #FAE1BE !important;\r\n    }*/\r\n</style>\r\n<script>\r\n    export default {\r\n        name: \"VueBootstrapTable\",\r\n        components: {},\r\n        props: {\r\n            /**\r\n             * The column titles, required\r\n             */\r\n            columns: {\r\n                type: Array,\r\n                required: true,\r\n            },\r\n            /**\r\n             * The rows, an Array of objects\r\n             */\r\n            values: {\r\n                type: Array,\r\n                required: true,\r\n            },\r\n            /**\r\n             * Enable/disable table sorting, optional, default true\r\n             */\r\n            sortable: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: true,\r\n            },\r\n            /**\r\n             * Enable/disable input filter, optional, default false\r\n             */\r\n            showFilter: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false,\r\n            },\r\n            /**\r\n             * Enable/disable column picker to show/hide table columns, optional, default false\r\n             */\r\n            showColumnPicker: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false,\r\n            },\r\n        },\r\n        data: function () {\r\n            return {\r\n                filteredSize: 0,\r\n                filterKey: \"\",\r\n                sortKey: \"\",\r\n                sortOrders: {},\r\n                columnMenuOpen: false,\r\n                displayCols: [],\r\n            };\r\n        },\r\n        ready: function () {\r\n            this.setSortOrders();\r\n            var self = this;\r\n            this.columns.forEach(function (column) {\r\n                var obj = {};\r\n                obj.title = column.title;\r\n                obj.visible = true;\r\n                self.displayCols.push(obj);\r\n            });\r\n        },\r\n        watch: {\r\n            values: function () {\r\n            },\r\n            columns: function () {\r\n                this.displayCols = [];\r\n                var self = this;\r\n                this.columns.forEach(function (column) {\r\n                    var obj = {};\r\n                    obj.title = column.title;\r\n                    obj.visible = true;\r\n                    self.displayCols.push(obj);\r\n                });\r\n                this.setSortOrders();\r\n            },\r\n            showFilter: function () {\r\n                this.filterKey = \"\";\r\n            },\r\n            showColumnPicker: function () {\r\n                this.columnMenuOpen = false;\r\n\r\n                this.displayCols.forEach(function (column) {\r\n                    column.visible = true;\r\n                });\r\n            }\r\n        },\r\n        computed: {\r\n            filteredValues: function () {\r\n                var result = this.$options.filters.filterBy(this.values, this.filterKey);\r\n                result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);\r\n                this.filteredSize = result.length;\r\n                return result;\r\n            },\r\n        },\r\n        methods: {\r\n            setSortOrders: function () {\r\n                this.sortKey = \"\";\r\n                var sortOrders = {};\r\n                this.columns.forEach(function (column) {\r\n                    sortOrders[column.title] = 0;\r\n                });\r\n                this.sortOrders = sortOrders;\r\n\r\n            },\r\n            sortBy: function (key) {\r\n                if (this.sortable) {\r\n                    var self = this;\r\n                    this.sortKey = key;\r\n                    this.columns.forEach(function (column) {\r\n                        if (column.title !== key) {\r\n                            self.sortOrders[column.title] = 0;\r\n                        }\r\n                    });\r\n                    if (this.sortOrders[key] === 0) {\r\n                        this.sortOrders[key] = 1;\r\n                    } else {\r\n                        this.sortOrders[key] = this.sortOrders[key] * -1;\r\n                    }\r\n                }\r\n                //console.log(JSON.stringify(this.sortOrders));\r\n            },\r\n            getClasses: function (key) {\r\n                var classes = [];\r\n                if (this.sortable) {\r\n                    classes.push(\"arrow\");\r\n                    if (this.sortKey === key) {\r\n                        classes.push(\"active\");\r\n                    }\r\n                    if (this.sortOrders[key] === 1) {\r\n                        classes.push(\"asc\");\r\n                    } else if (this.sortOrders[key] === -1) {\r\n                        classes.push(\"dsc\");\r\n                    }\r\n                }\r\n                return classes;\r\n            },\r\n            toggleColumn: function (column) {\r\n                column.visible = !column.visible;\r\n            },\r\n            closeDropdown: function () {\r\n                this.columnMenuOpen = false;\r\n            },\r\n        },\r\n        events: {}\r\n    }\r\n</script>"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vue-table {\n\n}\n\ntable.vue-table thead > tr > th {\n    cursor: pointer;\n    padding-right: 30px !important;\n}\n\n/*.vue-table th.active {\n    color: red;\n}*/\n\n.vue-table .arrow {\n    opacity: 1;\n    position: relative;\n}\n\n.vue-table .arrow:after {\n    position: absolute;\n    bottom: 8px;\n    right: 8px;\n    display: block;\n    font-family: 'Glyphicons Halflings';\n    content: \"\\E150\";\n    /*\n    display: inline-block;\n    vertical-align: middle;\n    width: 0;\n    height: 0;\n    margin-left: 5px;\n    opacity: 0.66;*/\n}\n\n.vue-table .arrow.asc:after {\n    content: \"\\E155\";\n    /*\n    border-left: 4px solid transparent;\n    border-right: 4px solid transparent;\n    border-bottom: 4px solid #000;\n    */\n}\n\n.vue-table .arrow.dsc:after {\n    content: \"\\E156\";\n}\n\n/*.vue-table .selected-cell {\n    background-color: #F7C072;\n}\n\n.vue-table .selected-row {\n    background-color: #FAE1BE !important;\n}*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?375c3959"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA8EA;;CAEA;;AAEA;IACA,gBAAA;IACA,+BAAA;CACA;;AAEA;;GAEA;;AAEA;IACA,WAAA;IACA,mBAAA;CACA;;AAEA;IACA,mBAAA;IACA,YAAA;IACA,WAAA;IACA,eAAA;IACA,oCAAA;IACA,iBAAA;IACA;;;;;;oBAMA;CACA;;AAEA;IACA,iBAAA;IACA;;;;MAIA;CACA;;AAEA;IACA,iBAAA;CACA;;AAEA;;;;;;GAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\n    <div @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n        <!--<pre>{{columns | json}}</pre>-->\n        <!--<pre>{{$data | json}}</pre>-->\n        <div class=\"col-sm-6\">\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n                <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                    <div class=\"input-group-addon\">\n                        <i class=\"glyphicon glyphicon-search\"></i>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-6\">\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                            aria-haspopup=\"true\">\n                        Columns <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\">\n                        <li v-for=\"column in displayCols\">\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-12\">\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n                <thead>\n                    <tr>\n                        <th v-for=\"column in displayCols | filterBy true in 'visible'\" @click=\"sortBy(column.title)\"\n                            track-by=\"$index\"\n                            :class=\"getClasses(column.title)\">\n                            {{ column.title }}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"entry in filteredValues | orderBy sortKey sortOrders[sortKey]\" track-by=\"$index\">\n                        <td v-for=\"column in displayCols | filterBy true in 'visible'\" track-by=\"$index\"\n                            v-show=\"column.visible\">\n                            <value-field-section\n                                v-bind:entry=\"entry\"\n                                :columntitle=\"column.title\"\n                                :value=\"entry[column.title]\"><value-field-section>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div v-if=\"paginated\" class=\"col-sm-12\">\n            <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n              <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"this.page=1\">&laquo;</button>\n              </div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n                <button v-for=\"index in validPageNumbers\"\n                    type=\"button\" class=\"btn btn-default\"\n                    v-bind:class=\"{ active: this.page===index }\"\n                    @click=\"this.page=index\">\n                        {{index}}\n                </button>\n              </div>\n              <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"this.page=this.maxPage\">&raquo;</button>\n              </div>\n            </div>\n        </div>\n    </div>\n</template>\n<style>\n    .vue-table {\n\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\e150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\e155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\e156\";\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n</style>\n<script>\n\n    /* Field Section used for displaying and editing value of cell */\n    var valueFieldSection = {\n      template: '<span v-if=\"!enabled\" @dblclick=\"toggleInput\"> {{ value }} </span>'+\n          '<div v-if=\"enabled\" class=\"input-group\">'+\n          '  <input type=\"text\" class=\"form-control\" v-model=\"value\" @keyup.enter=\"saveThis\">'+\n          '  <span class=\"input-group-btn\">'+\n          '    <button class=\"btn btn-primary\" type=\"button\" @click=\"saveThis\" >Go!</button>'+\n          '  </span>'+\n          '</div>',\n      props: ['entry','value','columntitle'],\n      data: function () {\n          return {\n            enabled: false,\n          }\n      },\n      methods: {\n        saveThis: function () {\n            var originalValue = this.entry[this.columntitle];\n            this.entry[this.columntitle] = this.value;\n            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columntitle,  this.entry);\n            this.enabled = !this.enabled;\n        },\n        toggleInput: function () {\n            this.enabled=!this.enabled\n        },\n      }\n    };\n\n    export default {\n        name: \"VueBootstrapTable\",\n        components: {\n            'value-field-section': valueFieldSection,\n        },\n        props: {\n            /**\n             * The column titles, required\n             */\n            columns: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * The rows, an Array of objects\n             */\n            values: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * Enable/disable table sorting, optional, default true\n             */\n            sortable: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable input filter, optional, default false\n             */\n            showFilter: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable column picker to show/hide table columns, optional, default false\n             */\n            showColumnPicker: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable pagination for the table, optional, default false\n             */\n            paginated: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * If pagination is enabled defining the page size, optional, default 10\n             */\n            pageSize: {\n                type: Number,\n                required: false,\n                default: 10,\n            },\n\n        },\n        data: function () {\n            return {\n                filteredSize: 0,\n                filterKey: \"\",\n                sortKey: \"\",\n                sortOrders: {},\n                columnMenuOpen: false,\n                displayCols: [],\n                page: 1,\n            };\n        },\n        ready: function () {\n            this.setSortOrders();\n            var self = this;\n            this.columns.forEach(function (column) {\n                var obj = {};\n                obj.title = column.title;\n                obj.visible = true;\n                self.displayCols.push(obj);\n            });\n        },\n        watch: {\n            values: function () {\n            },\n            columns: function () {\n                this.displayCols = [];\n                var self = this;\n                this.columns.forEach(function (column) {\n                    var obj = {};\n                    obj.title = column.title;\n                    obj.visible = true;\n                    self.displayCols.push(obj);\n                });\n                this.setSortOrders();\n            },\n            showFilter: function () {\n                this.filterKey = \"\";\n            },\n            showColumnPicker: function () {\n                this.columnMenuOpen = false;\n\n                this.displayCols.forEach(function (column) {\n                    column.visible = true;\n                });\n            },\n            filterKey: function () {\n                // filter was updated, so resetting to page 1\n                this.page = 1;\n            },\n        },\n        computed: {\n            filteredValues: function () {\n                var result = this.$options.filters.filterBy(this.values, this.filterKey);\n                result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);\n                this.filteredSize = result.length;\n                if(this.paginated) {\n                    var startIndex = (this.page-1)*this.pageSize;\n                    var tIndex = 0;\n                    var tempResult = [];\n                    while (tIndex < this.pageSize){\n                        if ( typeof result[startIndex+tIndex] !== \"undefined\")\n                            tempResult.push( result[startIndex+tIndex]);\n                        tIndex++;\n                    }\n                    return tempResult;\n                }\n                return result;\n            },\n            validPageNumbers: function () {\n                // 5 page max\n                var result = [];\n                var start = 1;\n                if (this.page > 3)\n                    start = this.page-2;\n                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {\n                    result.push(start);\n                    i++;\n                }\n                return result;\n            },\n            maxPage: function () {\n                return Math.ceil(this.filteredSize / this.pageSize);\n            },\n            showPaginationEtc: function () {\n                var temp = 1;\n                if (this.page > 3)\n                    temp = this.page-2;\n                return ( (temp+4) < this.maxPage  );\n            },\n        },\n        methods: {\n            setSortOrders: function () {\n                this.sortKey = \"\";\n                var sortOrders = {};\n                this.columns.forEach(function (column) {\n                    sortOrders[column.title] = 0;\n                });\n                this.sortOrders = sortOrders;\n\n            },\n            sortBy: function (key) {\n                if (this.sortable) {\n                    var self = this;\n                    this.sortKey = key;\n                    this.columns.forEach(function (column) {\n                        if (column.title !== key) {\n                            self.sortOrders[column.title] = 0;\n                        }\n                    });\n                    if (this.sortOrders[key] === 0) {\n                        this.sortOrders[key] = 1;\n                    } else {\n                        this.sortOrders[key] = this.sortOrders[key] * -1;\n                    }\n                }\n                //console.log(JSON.stringify(this.sortOrders));\n            },\n            getClasses: function (key) {\n                var classes = [];\n                if (this.sortable) {\n                    classes.push(\"arrow\");\n                    if (this.sortKey === key) {\n                        classes.push(\"active\");\n                    }\n                    if (this.sortOrders[key] === 1) {\n                        classes.push(\"asc\");\n                    } else if (this.sortOrders[key] === -1) {\n                        classes.push(\"dsc\");\n                    }\n                }\n                return classes;\n            },\n            toggleColumn: function (column) {\n                column.visible = !column.visible;\n            },\n            closeDropdown: function () {\n                this.columnMenuOpen = false;\n            },\n        },\n        events: {\n        }\n    }\n</script>"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
@@ -189,9 +194,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
@@ -411,11 +416,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -467,11 +472,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	//                     <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
 	//                         <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
 	//                             v-show="column.visible">
-	//                             {{ entry[column.title] }}
+	//                             <value-field-section
+	//                                 v-bind:entry="entry"
+	//                                 :columntitle="column.title"
+	//                                 :value="entry[column.title]"><value-field-section>
 	//                         </td>
 	//                     </tr>
 	//                 </tbody>
 	//             </table>
+	//         </div>
+	//         <div v-if="paginated" class="col-sm-12">
+	//             <div class="btn-toolbar" role="toolbar" aria-label="pagination bar">
+	//               <div class="btn-group" role="group" aria-label="first page">
+	//                 <button type="button" class="btn btn-default" @click="this.page=1">&laquo;</button>
+	//               </div>
+	//               <div class="btn-group" role="group" aria-label="pages">
+	//                 <button v-for="index in validPageNumbers"
+	//                     type="button" class="btn btn-default"
+	//                     v-bind:class="{ active: this.page===index }"
+	//                     @click="this.page=index">
+	//                         {{index}}
+	//                 </button>
+	//               </div>
+	//               <div class="btn-group" v-if="showPaginationEtc">...</div>
+	//               <div class="btn-group" role="group" aria-label="last page">
+	//                 <button type="button" class="btn btn-default" @click="this.page=this.maxPage">&raquo;</button>
+	//               </div>
+	//             </div>
 	//         </div>
 	//     </div>
 	// </template>
@@ -532,9 +559,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	//     }*/
 	// </style>
 	// <script>
+	
+	/* Field Section used for displaying and editing value of cell */
+	var valueFieldSection = {
+	    template: '<span v-if="!enabled" @dblclick="toggleInput"> {{ value }} </span>' + '<div v-if="enabled" class="input-group">' + '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis">' + '  <span class="input-group-btn">' + '    <button class="btn btn-primary" type="button" @click="saveThis" >Go!</button>' + '  </span>' + '</div>',
+	    props: ['entry', 'value', 'columntitle'],
+	    data: function data() {
+	        return {
+	            enabled: false
+	        };
+	    },
+	    methods: {
+	        saveThis: function saveThis() {
+	            var originalValue = this.entry[this.columntitle];
+	            this.entry[this.columntitle] = this.value;
+	            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columntitle, this.entry);
+	            this.enabled = !this.enabled;
+	        },
+	        toggleInput: function toggleInput() {
+	            this.enabled = !this.enabled;
+	        }
+	    }
+	};
+	
 	exports.default = {
 	    name: "VueBootstrapTable",
-	    components: {},
+	    components: {
+	        'value-field-section': valueFieldSection
+	    },
 	    props: {
 	        /**
 	         * The column titles, required
@@ -573,7 +625,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	            type: Boolean,
 	            required: false,
 	            default: false
+	        },
+	        /**
+	         * Enable/disable pagination for the table, optional, default false
+	         */
+	        paginated: {
+	            type: Boolean,
+	            required: false,
+	            default: false
+	        },
+	        /**
+	         * If pagination is enabled defining the page size, optional, default 10
+	         */
+	        pageSize: {
+	            type: Number,
+	            required: false,
+	            default: 10
 	        }
+	
 	    },
 	    data: function data() {
 	        return {
@@ -582,7 +651,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	            sortKey: "",
 	            sortOrders: {},
 	            columnMenuOpen: false,
-	            displayCols: []
+	            displayCols: [],
+	            page: 1
 	        };
 	    },
 	    ready: function ready() {
@@ -617,6 +687,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.displayCols.forEach(function (column) {
 	                column.visible = true;
 	            });
+	        },
+	        filterKey: function filterKey() {
+	            // filter was updated, so resetting to page 1
+	            this.page = 1;
 	        }
 	    },
 	    computed: {
@@ -624,7 +698,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var result = this.$options.filters.filterBy(this.values, this.filterKey);
 	            result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);
 	            this.filteredSize = result.length;
+	            if (this.paginated) {
+	                var startIndex = (this.page - 1) * this.pageSize;
+	                var tIndex = 0;
+	                var tempResult = [];
+	                while (tIndex < this.pageSize) {
+	                    if (typeof result[startIndex + tIndex] !== "undefined") tempResult.push(result[startIndex + tIndex]);
+	                    tIndex++;
+	                }
+	                return tempResult;
+	            }
 	            return result;
+	        },
+	        validPageNumbers: function validPageNumbers() {
+	            // 5 page max
+	            var result = [];
+	            var start = 1;
+	            if (this.page > 3) start = this.page - 2;
+	            for (var i = 0; start <= this.maxPage && i < 5; start++) {
+	                result.push(start);
+	                i++;
+	            }
+	            return result;
+	        },
+	        maxPage: function maxPage() {
+	            return Math.ceil(this.filteredSize / this.pageSize);
+	        },
+	        showPaginationEtc: function showPaginationEtc() {
+	            var temp = 1;
+	            if (this.page > 3) temp = this.page - 2;
+	            return temp + 4 < this.maxPage;
 	        }
 	    },
 	    methods: {
@@ -680,13 +783,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	// </script>
 	/* generated by vue-loader */
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	module.exports = "\n<div @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n    <!--<pre>{{columns | json}}</pre>-->\n    <!--<pre>{{$data | json}}</pre>-->\n    <div class=\"col-sm-6\">\n        <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n            <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                <div class=\"input-group-addon\">\n                    <i class=\"glyphicon glyphicon-search\"></i>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-6\">\n        <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n            <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                        type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                        aria-haspopup=\"true\">\n                    Columns <span class=\"caret\"></span>\n                </button>\n                <ul class=\"dropdown-menu\">\n                    <li v-for=\"column in displayCols\">\n                        <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                            <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-12\">\n        <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in displayCols | filterBy true in 'visible'\" @click=\"sortBy(column.title)\"\n                        track-by=\"$index\"\n                        :class=\"getClasses(column.title)\">\n                        {{ column.title }}\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr v-for=\"entry in filteredValues | orderBy sortKey sortOrders[sortKey]\" track-by=\"$index\">\n                    <td v-for=\"column in displayCols | filterBy true in 'visible'\" track-by=\"$index\"\n                        v-show=\"column.visible\">\n                        {{ entry[column.title] }}\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>\n";
+	module.exports = "\n<div @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n    <!--<pre>{{columns | json}}</pre>-->\n    <!--<pre>{{$data | json}}</pre>-->\n    <div class=\"col-sm-6\">\n        <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n            <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                <div class=\"input-group-addon\">\n                    <i class=\"glyphicon glyphicon-search\"></i>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-6\">\n        <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n            <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                        type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                        aria-haspopup=\"true\">\n                    Columns <span class=\"caret\"></span>\n                </button>\n                <ul class=\"dropdown-menu\">\n                    <li v-for=\"column in displayCols\">\n                        <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                            <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-12\">\n        <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in displayCols | filterBy true in 'visible'\" @click=\"sortBy(column.title)\"\n                        track-by=\"$index\"\n                        :class=\"getClasses(column.title)\">\n                        {{ column.title }}\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr v-for=\"entry in filteredValues | orderBy sortKey sortOrders[sortKey]\" track-by=\"$index\">\n                    <td v-for=\"column in displayCols | filterBy true in 'visible'\" track-by=\"$index\"\n                        v-show=\"column.visible\">\n                        <value-field-section\n                            v-bind:entry=\"entry\"\n                            :columntitle=\"column.title\"\n                            :value=\"entry[column.title]\"><value-field-section>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <div v-if=\"paginated\" class=\"col-sm-12\">\n        <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n          <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"this.page=1\">&laquo;</button>\n          </div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n            <button v-for=\"index in validPageNumbers\"\n                type=\"button\" class=\"btn btn-default\"\n                v-bind:class=\"{ active: this.page===index }\"\n                @click=\"this.page=index\">\n                    {{index}}\n            </button>\n          </div>\n          <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"this.page=this.maxPage\">&raquo;</button>\n          </div>\n        </div>\n    </div>\n</div>\n";
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
