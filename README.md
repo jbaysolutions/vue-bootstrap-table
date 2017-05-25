@@ -33,6 +33,7 @@ TODO UPDATE CHANGELOG
 * Sortable
 * Searchable
 * Select display columns
+* Pagination
 
 
 ## Requirements
@@ -110,6 +111,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
             :show-filter="true"
             :show-column-picker="true"
             :sortable="true"
+            :paginated="true"
     >
     </vue-bootstrap-table>
 ```` 
@@ -157,6 +159,22 @@ Or add the js script to your html (download from [releases](https://github.com/j
             required: false,
             default: false,
         },
+        /**
+         * Enable/disable pagination for the table, optional, default false
+         */
+        paginated: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        /**
+         * If pagination is enabled defining the page size, optional, default 10
+         */
+        pageSize: {
+            type: Number,
+            required: false,
+            default: 10,
+        },
     },
 
 ```
@@ -172,7 +190,7 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [x] Sorting
 - [x] Filter
 - [x] Column picker
-- [ ] Pagination
+- [x] Pagination
 - [ ] Responsive
 - [ ] Dates sorting
 - [ ] Keyboard navigation

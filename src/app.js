@@ -11,12 +11,13 @@ new Vue({
     data: {
         showFilter: true,
         showPicker: true,
+        paginated: true,
         columns: [
             {
-                title:"id",
+                title: "id",
             },
             {
-                title:"name",
+                title: "name",
             }
         ],
         values: [
@@ -27,25 +28,65 @@ new Vue({
             {
                 "id": 2,
                 "name": "mary",
+            },
+            {
+                "id": 3,
+                "name": "jack",
+            },
+            {
+                "id": 4,
+                "name": "joe",
+            },
+            {
+                "id": 5,
+                "name": "ana",
+            },
+            {
+                "id": 6,
+                "name": "rita",
+            },
+            {
+                "id": 7,
+                "name": "mario",
+            },
+            {
+                "id": 8,
+                "name": "luigi",
+            },
+            {
+                "id": 9,
+                "name": "mickey",
+            },
+            {
+                "id": 10,
+                "name": "donald",
+            },
+            {
+                "id": 11,
+                "name": "juliet",
             }
+
         ]
     },
     ready: function () {
     },
     methods: {
-        addItem: function() {
+        addItem: function () {
             var self = this;
             var item = {
-                "id" : this.values.length + 1,
-                "name": "name " + (this.values.length+1)
+                "id": this.values.length + 1,
+                "name": "name " + (this.values.length + 1)
             };
             this.values.push(item);
         },
-        toggleFilter: function() {
+        toggleFilter: function () {
             this.showFilter = !this.showFilter;
         },
-        togglePicker: function() {
+        togglePicker: function () {
             this.showPicker = !this.showPicker;
+        },
+        togglePagination: function () {
+            this.paginated = !this.paginated;
         }
     },
 });
