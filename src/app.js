@@ -13,12 +13,20 @@ new Vue({
         showFilter: true,
         showPicker: true,
         paginated: true,
+        ajax: {
+            enabled: false,
+            url: "http://localhost:9430/data/test",
+            method: "GET",
+            delegate: true,
+        },
         columns: [
             {
-                title: "id",
+                title: "Id",
+                name: "id",
             },
             {
-                title: "name",
+                title: "Name",
+                name: "title",
                 visible: true,
                 editable: true,
             }
@@ -26,47 +34,47 @@ new Vue({
         values: [
             {
                 "id": 1,
-                "name": "john",
+                "title": "john",
             },
             {
                 "id": 2,
-                "name": "mary",
+                "title": "mary",
             },
             {
                 "id": 3,
-                "name": "jack",
+                "title": "jack",
             },
             {
                 "id": 4,
-                "name": "joe",
+                "title": "joe",
             },
             {
                 "id": 5,
-                "name": "ana",
+                "title": "ana",
             },
             {
                 "id": 6,
-                "name": "rita",
+                "title": "rita",
             },
             {
                 "id": 7,
-                "name": "mario",
+                "title": "mario",
             },
             {
                 "id": 8,
-                "name": "luigi",
+                "title": "luigi",
             },
             {
                 "id": 9,
-                "name": "mickey",
+                "title": "mickey",
             },
             {
                 "id": 10,
-                "name": "donald",
+                "title": "donald",
             },
             {
                 "id": 11,
-                "name": "juliet",
+                "title": "juliet",
             }
 
         ]

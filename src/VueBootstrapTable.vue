@@ -34,9 +34,9 @@
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
                     <tr>
-                        <th v-for="column in displayCols | filterBy true in 'visible'" @click="sortBy(column.title)"
+                        <th v-for="column in displayCols | filterBy true in 'visible'" @click="sortBy(column.name)"
                             track-by="$index"
-                            :class="getClasses(column.title)">
+                            :class="getClasses(column.name)">
                             {{ column.title }}
                         </th>
                     </tr>
@@ -45,11 +45,11 @@
                     <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
                         <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
                             v-show="column.visible">
-                            <span v-if="!column.editable"> {{ entry[column.title] }} </span>
+                            <span v-if="!column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-else
-                                v-bind:entry="entry"
-                                :columntitle="column.title"
-                                :value="entry[column.title]"><value-field-section>
+                                :entry="entry"
+                                :columnname="column.name"
+                                :value="entry[column.name]"></value-field-section>
                         </td>
                     </tr>
                 </tbody>
@@ -139,6 +139,8 @@
 </style>
 <script>
 
+    import axios from 'axios';
+
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
       template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ value }} </span>'+
@@ -149,7 +151,7 @@
           '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
           '  </span>'+
           '</div>',
-      props: ['entry','value','columntitle'],
+      props: ['entry','value','columnname'],
       data: function () {
           return {
             enabled: false,
@@ -157,17 +159,17 @@
       },
       methods: {
         saveThis: function () {
-            var originalValue = this.entry[this.columntitle];
-            this.entry[this.columntitle] = this.value;
-            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columntitle,  this.entry);
+            var originalValue = this.entry[this.columnname];
+            this.entry[this.columnname] = this.value;
+            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columnname,  this.entry);
             this.enabled = !this.enabled;
         },
         cancelThis: function () {
-            this.value = this.entry[this.columntitle];
+            this.value = this.entry[this.column-name];
             this.enabled = !this.enabled;
         },
         toggleInput: function () {
-            this.enabled=!this.enabled
+            this.enabled=!this.enabled;
         },
       }
     };
@@ -190,7 +192,7 @@
              */
             values: {
                 type: Array,
-                required: true,
+                required: false,
             },
             /**
              * Enable/disable table sorting, optional, default true
@@ -232,35 +234,53 @@
                 required: false,
                 default: 10,
             },
-
+            /**
+             * If loading of table is to be done through ajax, then this object must be set
+             */
+            ajax: {
+                type: Object,
+                required: false,
+                default: function () {
+                    return {
+                        enabled: false,
+                        url: "",
+                        method: "GET",
+                        delegate: false,
+                    }
+                }
+            },
         },
         data: function () {
             return {
                 filteredSize: 0,
                 filterKey: "",
                 sortKey: "",
+                sortDir: "",
                 sortOrders: {},
                 columnMenuOpen: false,
                 displayCols: [],
+                filteredValues: [],
                 page: 1,
+                echo: 0,
             };
         },
         ready: function () {
             this.setSortOrders();
             var self = this;
             this.columns.forEach(function (column) {
-                var obj = {};
-                obj.title = column.title;
-                if ( typeof column.visible !== "undefined")
-                    obj.visible = column.visible;
-                else
-                    obj.visible = true;
-                if ( typeof column.editable !== "undefined")
-                    obj.editable = column.editable;
-                else
-                    obj.editable = false;
+                var obj = self.buildColumnObject(column);
                 self.displayCols.push(obj);
             });
+            if (this.ajax.enabled) {
+                if (!this.ajax.delegate) {
+                    this.fetchData(function (data) {
+                        self.values = data.data;
+                        self.processFilter();
+                    });
+                }else
+                    this.processFilter();
+            }
+            this.processFilter();
         },
         watch: {
             values: function () {
@@ -269,9 +289,7 @@
                 this.displayCols = [];
                 var self = this;
                 this.columns.forEach(function (column) {
-                    var obj = {};
-                    obj.title = column.title;
-                    obj.visible = true;
+                    var obj = self.buildColumnObject(column);
                     self.displayCols.push(obj);
                 });
                 this.setSortOrders();
@@ -289,26 +307,22 @@
             filterKey: function () {
                 // filter was updated, so resetting to page 1
                 this.page = 1;
+                this.processFilter();
+            },
+            sortKey: function () {
+                this.processFilter();
+            },
+            sortDir: function () {
+                this.processFilter();
+            },
+            page: function () {
+                this.processFilter();
+            },
+            paginated: function () {
+                this.processFilter();
             },
         },
         computed: {
-            filteredValues: function () {
-                var result = this.$options.filters.filterBy(this.values, this.filterKey);
-                result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);
-                this.filteredSize = result.length;
-                if(this.paginated) {
-                    var startIndex = (this.page-1)*this.pageSize;
-                    var tIndex = 0;
-                    var tempResult = [];
-                    while (tIndex < this.pageSize){
-                        if ( typeof result[startIndex+tIndex] !== "undefined")
-                            tempResult.push( result[startIndex+tIndex]);
-                        tIndex++;
-                    }
-                    return tempResult;
-                }
-                return result;
-            },
             validPageNumbers: function () {
                 // 5 page max
                 var result = [];
@@ -332,11 +346,81 @@
             },
         },
         methods: {
+            processFilter: function () {
+                var self = this;
+                if ( this.ajax.enabled && this.ajax.delegate ) {
+                   this.fetchData(function (data) {
+                       self.filteredSize = data.filtered;
+                       self.filteredValues = data.data;
+                   });
+                } else {
+                    var result = this.$options.filters.filterBy(this.values, this.filterKey);
+                    result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);
+                    this.filteredSize = result.length;
+                    if (this.paginated) {
+                        var startIndex = (this.page - 1) * this.pageSize;
+                        var tIndex = 0;
+                        var tempResult = [];
+                        while (tIndex < this.pageSize) {
+                            if (typeof result[startIndex + tIndex] !== "undefined")
+                                tempResult.push(result[startIndex + tIndex]);
+                            tIndex++;
+                        }
+                        self.filteredValues = tempResult;
+                    } else
+                        self.filteredValues = result;
+                }
+            },
+            fetchData: function ( dataCallBackFunction ) {
+                var self = this;
+                var ajaxParameters = {
+                    params: {
+                    }
+                };
+                this.echo++;
+                if (this.ajax.delegate) {
+                    ajaxParameters.params.sortcol = this.sortKey;
+                    ajaxParameters.params.sortdir = this.sortDir;
+                    ajaxParameters.params.filter = this.filterKey;
+                    ajaxParameters.params.page = this.page;
+                    ajaxParameters.params.pagesize = this.pageSize;
+                    ajaxParameters.params.echo = this.echo;
+                    //console.log(JSON.stringify(ajaxParameters));
+                }
+                axios.get(self.ajax.url, ajaxParameters )
+                    .then(response => {
+                        if (response.data.echo === self.echo) {
+                            //console.log("Echo matched, updating");
+                            dataCallBackFunction(response.data);
+                            this.$dispatch('ajaxLoadedEvent', response.data);
+                        }
+                    })
+                    .catch(e => {
+                        this.$dispatch('ajaxLoadingError', e);
+                    });
+            },
+            buildColumnObject: function (column) {
+                var obj = {};
+                obj.title = column.title;
+                if ( typeof column.name !== "undefined")
+                    obj.name = column.name;
+                else
+                    obj.name = column.title;
+                if ( typeof column.visible !== "undefined")
+                    obj.visible = column.visible;
+                else
+                    obj.visible = true;
+                if ( typeof column.editable !== "undefined")
+                    obj.editable = column.editable;
+                else
+                    obj.editable = false;
+                return obj;
+            },
             setSortOrders: function () {
                 this.sortKey = "";
                 var sortOrders = {};
                 this.columns.forEach(function (column) {
-                    sortOrders[column.title] = 0;
+                    sortOrders[column.name] = 0;
                 });
                 this.sortOrders = sortOrders;
 
@@ -346,8 +430,8 @@
                     var self = this;
                     this.sortKey = key;
                     this.columns.forEach(function (column) {
-                        if (column.title !== key) {
-                            self.sortOrders[column.title] = 0;
+                        if (column.name !== key) {
+                            self.sortOrders[column.name] = 0;
                         }
                     });
                     if (this.sortOrders[key] === 0) {
@@ -355,8 +439,12 @@
                     } else {
                         this.sortOrders[key] = this.sortOrders[key] * -1;
                     }
+
+                    if (this.sortOrders[key] === 1)
+                        this.sortDir = "ASC";
+                    if (this.sortOrders[key] === -1)
+                        this.sortDir = "DESC";
                 }
-                //console.log(JSON.stringify(this.sortOrders));
             },
             getClasses: function (key) {
                 var classes = [];
