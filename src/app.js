@@ -14,10 +14,10 @@ new Vue({
         showPicker: true,
         paginated: true,
         ajax: {
-            enabled: false,
+            enabled: true,
             url: "http://localhost:9430/data/test",
-            method: "GET",
-            delegate: true,
+            method: "POST",
+            delegate: false,
         },
         columns: [
             {

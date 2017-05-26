@@ -140,6 +140,7 @@
 <script>
 
     import axios from 'axios';
+    import qs from 'qs';
 
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
@@ -374,30 +375,52 @@
             fetchData: function ( dataCallBackFunction ) {
                 var self = this;
                 var ajaxParameters = {
-                    params: {
-                    }
+
                 };
                 this.echo++;
-                if (this.ajax.delegate) {
-                    ajaxParameters.params.sortcol = this.sortKey;
-                    ajaxParameters.params.sortdir = this.sortDir;
-                    ajaxParameters.params.filter = this.filterKey;
-                    ajaxParameters.params.page = this.page;
-                    ajaxParameters.params.pagesize = this.pageSize;
-                    ajaxParameters.params.echo = this.echo;
+                if (this.ajax.enabled && this.ajax.delegate) {
+                    if ( this.ajax.method=== "GET" ) {
+                        ajaxParameters.params.sortcol = this.sortKey;
+                        ajaxParameters.params.sortdir = this.sortDir;
+                        ajaxParameters.params.filter = this.filterKey;
+                        ajaxParameters.params.page = this.page;
+                        ajaxParameters.params.pagesize = this.pageSize;
+                        ajaxParameters.params.echo = this.echo;
+                    }
+                    if ( this.ajax.method=== "POST" ) {
+                        ajaxParameters.sortcol = this.sortKey;
+                        ajaxParameters.sortdir = this.sortDir;
+                        ajaxParameters.filter = this.filterKey;
+                        ajaxParameters.page = this.page;
+                        ajaxParameters.pagesize = this.pageSize;
+                        ajaxParameters.echo = this.echo;
+                    }
                     //console.log(JSON.stringify(ajaxParameters));
                 }
-                axios.get(self.ajax.url, ajaxParameters )
-                    .then(response => {
-                        if (response.data.echo === self.echo) {
-                            //console.log("Echo matched, updating");
-                            dataCallBackFunction(response.data);
-                            this.$dispatch('ajaxLoadedEvent', response.data);
-                        }
-                    })
-                    .catch(e => {
-                        this.$dispatch('ajaxLoadingError', e);
-                    });
+                if (this.ajax.enabled && this.ajax.method === "GET") {
+                    axios.get(self.ajax.url, ajaxParameters )
+                        .then(response => {
+                            if (response.data.echo === self.echo) {
+                                dataCallBackFunction(response.data);
+                                this.$dispatch('ajaxLoadedEvent', response.data);
+                            }
+                        })
+                        .catch(e => {
+                            this.$dispatch('ajaxLoadingError', e);
+                        });
+                }
+                if (this.ajax.enabled && this.ajax.method === "POST") {
+                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) )
+                        .then(response => {
+                            if (response.data.echo === self.echo) {
+                                dataCallBackFunction(response.data);
+                                this.$dispatch('ajaxLoadedEvent', response.data);
+                            }
+                        })
+                        .catch(e => {
+                            this.$dispatch('ajaxLoadingError', e);
+                        });
+                }
             },
             buildColumnObject: function (column) {
                 var obj = {};
