@@ -9,6 +9,6 @@
 
 * bugfix: clear displayCols when columns change
 
-## 10.0 (Aug 23, 2016)
+## 1.0.0 (Aug 23, 2016)
 
 * First Version
