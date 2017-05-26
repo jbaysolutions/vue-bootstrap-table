@@ -12,7 +12,7 @@
     "filter",
     "responsive"
   ],
-  "main": "src/app.js",
+  "main": "dist/vue-bootstrap-table.min.js",
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --hot",
     "build": "cross-env NODE_ENV=production && webpack --progress --hide-modules",
