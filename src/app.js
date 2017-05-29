@@ -17,7 +17,7 @@ new Vue({
             enabled: true,
             url: "http://localhost:9430/data/test",
             method: "POST",
-            delegate: false,
+            delegate: true,
         },
         columns: [
             {

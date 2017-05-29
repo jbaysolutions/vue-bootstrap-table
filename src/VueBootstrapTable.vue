@@ -1,5 +1,8 @@
 <template>
-    <div @click="closeDropdown" @keyup.esc="closeDropdown">
+    <div id="maindiv" @click="closeDropdown" @keyup.esc="closeDropdown">
+        <div id="loadingdiv" :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
+            <div class="spinner"></div>
+        </div>
         <!--<pre>{{columns | json}}</pre>-->
         <!--<pre>{{$data | json}}</pre>-->
         <div class="col-sm-6">
@@ -79,6 +82,43 @@
 <style>
     .vue-table {
 
+    }
+
+    #maindiv {
+        content: " ";
+        box-sizing: border-box;
+        display:
+        table; width: 100%;
+    }
+
+    .spinner {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -60px 0 0 -60px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+
+    .vue-table-loading{
+        position: absolute;
+        z-index: 99;
+        background-color: #ddd;
+        opacity: 0.5;
+    }
+
+    .vue-table-loading-hidden {
+        display: none;
     }
 
     table.vue-table thead > tr > th {
@@ -263,9 +303,11 @@
                 filteredValues: [],
                 page: 1,
                 echo: 0,
+                loading: false,
             };
         },
         ready: function () {
+            this.loading= true;
             this.setSortOrders();
             var self = this;
             this.columns.forEach(function (column) {
@@ -274,14 +316,15 @@
             });
             if (this.ajax.enabled) {
                 if (!this.ajax.delegate) {
+                    this.loading= true;
                     this.fetchData(function (data) {
                         self.values = data.data;
                         self.processFilter();
                     });
                 }else
                     this.processFilter();
-            }
-            this.processFilter();
+            }else
+                this.processFilter();
         },
         watch: {
             values: function () {
@@ -322,6 +365,10 @@
             paginated: function () {
                 this.processFilter();
             },
+            loading: function () {
+                document.getElementById("loadingdiv").style.width = document.getElementById("maindiv").getBoundingClientRect().width + "px";
+                document.getElementById("loadingdiv").style.height = document.getElementById("maindiv").getBoundingClientRect().height+"px";
+            }
         },
         computed: {
             validPageNumbers: function () {
@@ -349,10 +396,12 @@
         methods: {
             processFilter: function () {
                 var self = this;
+                this.loading = true;
                 if ( this.ajax.enabled && this.ajax.delegate ) {
                    this.fetchData(function (data) {
                        self.filteredSize = data.filtered;
                        self.filteredValues = data.data;
+                       self.loading = false;
                    });
                 } else {
                     var result = this.$options.filters.filterBy(this.values, this.filterKey);
@@ -370,6 +419,7 @@
                         self.filteredValues = tempResult;
                     } else
                         self.filteredValues = result;
+                    self.loading = false;
                 }
             },
             fetchData: function ( dataCallBackFunction ) {
@@ -383,16 +433,26 @@
                         ajaxParameters.params.sortcol = this.sortKey;
                         ajaxParameters.params.sortdir = this.sortDir;
                         ajaxParameters.params.filter = this.filterKey;
-                        ajaxParameters.params.page = this.page;
-                        ajaxParameters.params.pagesize = this.pageSize;
+                        if (self.paginated ) {
+                            ajaxParameters.params.page = this.page;
+                            ajaxParameters.params.pagesize = this.pageSize;
+                        } else {
+                            ajaxParameters.params.page = 1;
+                            ajaxParameters.params.pagesize = null;
+                        }
                         ajaxParameters.params.echo = this.echo;
                     }
                     if ( this.ajax.method=== "POST" ) {
                         ajaxParameters.sortcol = this.sortKey;
                         ajaxParameters.sortdir = this.sortDir;
                         ajaxParameters.filter = this.filterKey;
-                        ajaxParameters.page = this.page;
-                        ajaxParameters.pagesize = this.pageSize;
+                        if (self.paginated ) {
+                            ajaxParameters.page = this.page;
+                            ajaxParameters.pagesize = this.pageSize;
+                        } else {
+                            ajaxParameters.page = 1;
+                            ajaxParameters.pagesize = null;
+                        }
                         ajaxParameters.echo = this.echo;
                     }
                     //console.log(JSON.stringify(ajaxParameters));
