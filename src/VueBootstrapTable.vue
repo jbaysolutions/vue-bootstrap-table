@@ -1,8 +1,5 @@
 <template>
     <div id="maindiv" @click="closeDropdown" @keyup.esc="closeDropdown">
-        <div id="loadingdiv" :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
-            <div class="spinner"></div>
-        </div>
         <!--<pre>{{columns | json}}</pre>-->
         <!--<pre>{{$data | json}}</pre>-->
         <div class="col-sm-6">
@@ -34,6 +31,9 @@
             </div>
         </div>
         <div class="col-sm-12">
+            <div id="loadingdiv" :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
+                <div class="spinner"></div>
+            </div>
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
                     <tr>
@@ -84,13 +84,13 @@
 
     }
 
-    #maindiv {
+    /*#maindiv {
         content: " ";
         box-sizing: border-box;
         display:
         table; width: 100%;
     }
-
+*/
     .spinner {
         border: 16px solid #f3f3f3; /* Light grey */
         border-top: 16px solid #3498db; /* Blue */
@@ -115,6 +115,8 @@
         z-index: 99;
         background-color: #ddd;
         opacity: 0.5;
+        width: 100%;
+        height: 100%;
     }
 
     .vue-table-loading-hidden {
@@ -366,8 +368,8 @@
                 this.processFilter();
             },
             loading: function () {
-                document.getElementById("loadingdiv").style.width = document.getElementById("maindiv").getBoundingClientRect().width + "px";
-                document.getElementById("loadingdiv").style.height = document.getElementById("maindiv").getBoundingClientRect().height+"px";
+                /*document.getElementById("loadingdiv").style.width = document.getElementById("maindiv").getBoundingClientRect().width + "px";
+                document.getElementById("loadingdiv").style.height = document.getElementById("maindiv").getBoundingClientRect().height+"px";*/
             }
         },
         computed: {
