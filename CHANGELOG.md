@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 (May 30, 2017)
+
+* Remote data loading (through ajax call)
+* Remote data processing (through ajax calls)
+* Loading overlay
+
 ## 1.0.2 (May 26, 2017)
 
 * Added Pagination support
