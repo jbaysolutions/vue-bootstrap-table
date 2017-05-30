@@ -35,6 +35,8 @@ TODO UPDATE CHANGELOG
 * Select display columns
 * Pagination
 * On Table Editing
+* Remote data loading
+* Remote data processing
 
 
 ## Requirements
@@ -182,6 +184,21 @@ Or add the js script to your html (download from [releases](https://github.com/j
             required: false,
             default: 10,
         },
+        /**
+         * If loading of table is to be done through ajax, then this object must be set
+         */
+        ajax: {
+            type: Object,
+            required: false,
+            default: function () {
+                return {
+                    enabled: false,
+                    url: "",
+                    method: "GET",
+                    delegate: false,
+                }
+            }
+        },
     },
 
 ```
@@ -217,6 +234,92 @@ Column with Title "Name" , which is visible and editable:
 }
 ```
 
+### AJAX Configuration
+
+Ajax Object properties:
+
+* enabled : to enable loading through ajax call, enable this
+* url: the URL where to request the data
+* methods: GET and POST are the valid methods allowed
+* delegate: False = just get all the data and do processing on browser;  True = Ask for data as needed, and all processing is done on the server side.
+
+
+#### Example AJAX config for Remote Loading
+
+This configuration will only make one request to the server, to get all the data and load it straight into the browser.
+
+```javascript
+ajax: {
+    enabled: true,
+    url: "http://localhost:9430/data/test",
+    method: "GET",
+    delegate: false,
+},
+```
+
+#### Example AJAX config for Remote Processing
+
+This configuration will only make many requests to the server, each time data ir needed, or any processing is required: for filtering, ordering, pagniation, changes of page size, etc.
+
+```javascript
+ajax: {
+    enabled: true,
+    url: "http://localhost:9430/data/test",
+    method: "GET",
+    delegate: true,
+},
+```
+
+### Ajax Request and Expected Response
+
+#### Ajax Request Parameters Sent
+
+When Ajax is enabled, the following parameters are sent with each request for the URL specified:
+
+ - `sortcol` : The name of the column to sort by (only sent when `delegate` is true, otherwise will be null)
+ - `sortdir` : The sorting direction "ASC" or "DESC" (only sent when `delegate` is true, otherwise will be null)
+ - `filter` : The filter to be used  (only sent when `delegate` is true, otherwise will be null)
+ - `page` : The number of the page being requested ( when delegate is false, it will always be 1 )
+ - `pagesize` : The number of records being requested.
+ - `echo` : A unique number for the request.
+
+#### Ajax Expected Response
+
+For all requests, vue-bootstrap-table expects an object of the following type:
+
+```javascript
+{
+    echo: INTEGER,
+    filtered: INTEGER,
+    data: [OBJECT],
+},
+```
+
+Where:
+
+- `echo` : is the same integer the request provided.
+- `filtered` : is the total amount of entries for the request, and is used for pagination
+- `data` : is an Array of Object with the entries.
+
+Example:
+
+```javascript
+{
+    echo: 1,
+    filtered: 2000,
+    data: [
+        {
+            id: 1,
+            name: "Rui"
+        },
+        {
+            id: 2,
+            name: "Gustavo"
+        },
+    ],
+},
+```
+
 ## Events
 
 * `cellDataModifiedEvent` - When a cell is edited, an `cellDataModifiedEvent` event is dispatched.
@@ -250,13 +353,19 @@ If you have a feature request, please add it as an issue or make a pull request.
 - [x] Column picker
 - [x] Pagination
 - [x] Editing
-- [ ] Ajax
+- [x] Ajax
 - [ ] Responsive
 - [ ] Dates sorting
 - [ ] Keyboard navigation
 
 
 ## Changelog
+
+### 1.1.0
+
+* Remote data loading (through ajax call)
+* Remote data processing (through ajax calls)
+* Loading overlay
 
 ### 1.0.2
 
