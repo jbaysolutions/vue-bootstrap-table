@@ -328,6 +328,8 @@ Example:
 ## Events
 
 * `cellDataModifiedEvent` - When a cell is edited, an `cellDataModifiedEvent` event is dispatched.
+* `ajaxLoadedEvent` - When ajax call is executed successfully an `ajaxLoadedEvent` event is dispatched.
+* `ajaxLoadingError` -When ajax call is executed unsuccessfully an  `ajaxLoadingError` event is dispatched.
 
 ### Handling `cellDataModifiedEvent`
 
