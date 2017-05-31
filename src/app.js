@@ -1,6 +1,3 @@
-Vue.config.debug = true;
-Vue.config.devtools = true;
-
 import VueBootstrapTable from './VueBootstrapTable.vue';
 
 new Vue({
@@ -79,7 +76,26 @@ new Vue({
 
         ]
     },
-    ready: function () {
+    created: function () {
+        var self = this;
+        this.$on('cellDataModifiedEvent',
+            function( originalValue, newValue, columnTitle, entry) {
+                self.logging.push("cellDataModifiedEvent - Original Value : " + originalValue +
+                                         " | New Value : " + newValue +
+                                         " | Column : " + columnTitle +
+                                         " | Complete Entry : " +  entry );
+            }
+        );
+        this.$on('ajaxLoadedEvent',
+            function( data ) {
+                this.logging.push("ajaxLoadedEvent - data : " + data );
+            }
+        );
+        this.$on('ajaxLoadingError',
+            function( error ) {
+                this.logging.push("ajaxLoadingError - error : " + error );
+            }
+        );
     },
     methods: {
         addItem: function () {
@@ -99,13 +115,5 @@ new Vue({
         togglePagination: function () {
             this.paginated = !this.paginated;
         }
-    },
-    events: {
-        cellDataModifiedEvent: function( originalValue, newValue, columnTitle, entry) {
-            this.logging.push("Original Value : " + originalValue +
-                         " | New Value : " + newValue +
-                         " | Column : " + columnTitle +
-                         " | Complete Entry : " +  entry );
-        },
     },
 });

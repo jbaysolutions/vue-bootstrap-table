@@ -1,7 +1,7 @@
 <template>
     <div id="maindiv" @click="closeDropdown" @keyup.esc="closeDropdown">
-        <!--<pre>{{columns | json}}</pre>-->
-        <!--<pre>{{$data | json}}</pre>-->
+        <!--<pre>{{columns}}</pre>-->
+        <!--<pre>{{$data}}</pre>-->
         <div class="col-sm-6">
             <div v-if="showFilter" style="padding-top: 10px;padding-bottom: 10px;">
                 <div class="input-group">
@@ -37,16 +37,16 @@
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
                     <tr>
-                        <th v-for="column in displayCols | filterBy true in 'visible'" @click="sortBy(column.name)"
-                            track-by="$index"
+                        <th v-for="column in displayColsVisible" @click="sortBy(column.name)"
+                            track-by="column"
                             :class="getClasses(column.name)">
                             {{ column.title }}
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="entry in filteredValues | orderBy sortKey sortOrders[sortKey]" track-by="$index">
-                        <td v-for="column in displayCols | filterBy true in 'visible'" track-by="$index"
+                    <tr v-for="entry in filteredValuesSorted " track-by="entry">
+                        <td v-for="column in displayColsVisible" track-by="column"
                             v-show="column.visible">
                             <span v-if="!column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-else
@@ -61,19 +61,19 @@
         <div v-if="paginated" class="col-sm-12">
             <div class="btn-toolbar" role="toolbar" aria-label="pagination bar">
               <div class="btn-group" role="group" aria-label="first page">
-                <button type="button" class="btn btn-default" @click="this.page=1">&laquo;</button>
+                <button type="button" class="btn btn-default" @click="page=1">&laquo;</button>
               </div>
               <div class="btn-group" role="group" aria-label="pages">
                 <button v-for="index in validPageNumbers"
                     type="button" class="btn btn-default"
-                    v-bind:class="{ active: this.page===index }"
-                    @click="this.page=index">
+                    :class="{ active: page===index }"
+                    @click="page=index">
                         {{index}}
                 </button>
               </div>
               <div class="btn-group" v-if="showPaginationEtc">...</div>
               <div class="btn-group" role="group" aria-label="last page">
-                <button type="button" class="btn btn-default" @click="this.page=this.maxPage">&raquo;</button>
+                <button type="button" class="btn btn-default" @click="page=maxPage">&raquo;</button>
               </div>
             </div>
         </div>
@@ -183,12 +183,13 @@
 
     import axios from 'axios';
     import qs from 'qs';
+    import lodash from 'lodash';
 
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
-      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ value }} </span>'+
-          '<div v-if="enabled" class="input-group">'+
-          '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
+      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ datavalue }} </span>'+
+          '<div v-else-if="enabled" class="input-group">'+
+          '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
           '  <span class="input-group-btn">'+
           '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
           '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
@@ -198,17 +199,19 @@
       data: function () {
           return {
             enabled: false,
+            datavalue: this.value
           }
       },
       methods: {
         saveThis: function () {
             var originalValue = this.entry[this.columnname];
-            this.entry[this.columnname] = this.value;
-            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columnname,  this.entry);
+            this.entry[this.columnname] = this.datavalue;
+            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);
             this.enabled = !this.enabled;
         },
         cancelThis: function () {
-            this.value = this.entry[this.column-name];
+            console.log("Edit Canceled !");
+            this.datavalue = this.entry[this.columnname];
             this.enabled = !this.enabled;
         },
         toggleInput: function () {
@@ -308,25 +311,35 @@
                 loading: false,
             };
         },
-        ready: function () {
-            this.loading= true;
-            this.setSortOrders();
-            var self = this;
-            this.columns.forEach(function (column) {
-                var obj = self.buildColumnObject(column);
-                self.displayCols.push(obj);
-            });
-            if (this.ajax.enabled) {
-                if (!this.ajax.delegate) {
-                    this.loading= true;
-                    this.fetchData(function (data) {
-                        self.values = data.data;
-                        self.processFilter();
-                    });
-                }else
-                    this.processFilter();
-            }else
-                this.processFilter();
+        mounted: function () {
+          this.$nextTick(function () {
+              this.loading= true;
+              this.setSortOrders();
+              var self = this;
+              this.columns.forEach(function (column) {
+                  var obj = self.buildColumnObject(column);
+                  self.displayCols.push(obj);
+              });
+              if (this.ajax.enabled) {
+                  if (!this.ajax.delegate) {
+                      this.loading= true;
+                      this.fetchData(function (data) {
+                          self.values = data.data;
+                          self.processFilter();
+                      });
+                  }else
+                      this.processFilter();
+              }else
+                  this.processFilter();
+          })
+        },
+        created: function () {
+            var self = this ;
+            this.$on('cellDataModifiedEvent', self,fireCellDataModifiedEvent);
+        },
+        beforeDestroy: function(){
+            var self = this ;
+            this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         watch: {
             values: function () {
@@ -373,6 +386,18 @@
             }
         },
         computed: {
+            displayColsVisible: function () {
+                var displayColsVisible = [];
+                for (var a in this.displayCols) {
+                    if (this.displayCols[a].visible)
+                        displayColsVisible.push(this.displayCols[a]);
+                }
+                return displayColsVisible;
+            },
+            filteredValuesSorted: function () {
+                //  orderBy sortKey sortOrders[sortKey]
+                return  _.orderBy(this.filteredValues, this.sortKey , this.sortDir.toLowerCase());
+            },
             validPageNumbers: function () {
                 // 5 page max
                 var result = [];
@@ -396,6 +421,9 @@
             },
         },
         methods: {
+            fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {
+                this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);
+            },
             processFilter: function () {
                 var self = this;
                 this.loading = true;
@@ -406,8 +434,18 @@
                        self.loading = false;
                    });
                 } else {
-                    var result = this.$options.filters.filterBy(this.values, this.filterKey);
-                    result = this.$options.filters.orderBy(result, this.sortKey, this.sortOrders[this.sortKey]);
+                    var result = this.values.filter(item => {
+                                var good = false;
+                                for (var col in self.displayColsVisible) {
+                                    if ( _.includes(item[self.displayColsVisible[col].name]+"" , self.filterKey+"")){
+                                        good = true;
+                                    }
+                                }
+                                return good;
+                    });
+
+                    result = _.orderBy(result, this.sortKey, this.sortDir.toLowerCase());
+
                     this.filteredSize = result.length;
                     if (this.paginated) {
                         var startIndex = (this.page - 1) * this.pageSize;
@@ -464,11 +502,11 @@
                         .then(response => {
                             if (response.data.echo === self.echo) {
                                 dataCallBackFunction(response.data);
-                                this.$dispatch('ajaxLoadedEvent', response.data);
+                                this.$parent.$emit('ajaxLoadedEvent', response.data);
                             }
                         })
                         .catch(e => {
-                            this.$dispatch('ajaxLoadingError', e);
+                            this.$parent.$emit('ajaxLoadingError', e);
                         });
                 }
                 if (this.ajax.enabled && this.ajax.method === "POST") {
@@ -476,11 +514,11 @@
                         .then(response => {
                             if (response.data.echo === self.echo) {
                                 dataCallBackFunction(response.data);
-                                this.$dispatch('ajaxLoadedEvent', response.data);
+                                this.$parent.$emit('ajaxLoadedEvent', response.data);
                             }
                         })
                         .catch(e => {
-                            this.$dispatch('ajaxLoadingError', e);
+                            this.$parent.$emit('ajaxLoadingError', e);
                         });
                 }
             },
