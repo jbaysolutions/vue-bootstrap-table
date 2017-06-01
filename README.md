@@ -2,9 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 1
-
-Use current release : 1.1.0
+### VUE 1 : 1.1.1
 
 ### Vue 2 : [jbaysolutions/vue2-bootstrap-table](https://github.com/jbaysolutions/vue2-bootstrap-table)
 
@@ -331,7 +329,7 @@ Example:
 * `ajaxLoadedEvent` - When ajax call is executed successfully an `ajaxLoadedEvent` event is dispatched.
 * `ajaxLoadingError` -When ajax call is executed unsuccessfully an  `ajaxLoadingError` event is dispatched.
 
-### Handling `cellDataModifiedEvent`
+### Handling Events
 
 ```javascript
 
@@ -343,6 +341,12 @@ Example:
                          " | Column : " + columnTitle +
                          " | Complete Entry : " +  entry );
 
+        },
+        ajaxLoadedEvent: function( data ) {
+            console.log("ajaxLoadedEvent - data : " + data );
+        },
+        ajaxLoadingError: function( error ) {
+            console.log("ajaxLoadingError - error : " + error );
         },
     },
 ```
@@ -367,6 +371,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.1
+
+* Added more Events
 
 ### 1.1.0
 

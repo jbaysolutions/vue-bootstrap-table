@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (June 1, 2017)
+
+* Added more Events
+
 ## 1.1.0 (May 30, 2017)
 
 * Remote data loading (through ajax call)

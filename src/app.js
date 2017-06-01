@@ -14,7 +14,7 @@ new Vue({
         showPicker: true,
         paginated: true,
         ajax: {
-            enabled: true,
+            enabled: false,
             url: "http://localhost:9430/data/test",
             method: "POST",
             delegate: true,
