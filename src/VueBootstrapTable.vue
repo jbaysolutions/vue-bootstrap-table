@@ -330,6 +330,7 @@
         },
         watch: {
             values: function () {
+                this.processFilter();
             },
             columns: function () {
                 this.displayCols = [];
