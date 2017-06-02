@@ -11,6 +11,13 @@ new Vue({
         showFilter: true,
         showPicker: true,
         paginated: true,
+        multiColumnSortable: true,
+        ajax: {
+            enabled: false,
+            url: "http://localhost:9430/data/test",
+            method: "POST",
+            delegate: true,
+        },
         columns: [
             {
                 title:"id",
@@ -18,17 +25,20 @@ new Vue({
                 editable: false,
             },
             {
-                title:"name",
+                title:"Name",
+                name: "name",
                 visible: true,
                 editable: true,
             },
             {
-                title:"age",
+                title:"Age",
+                name:"age",
                 visible: true,
                 editable: true,
             },
             {
-                title:"country",
+                title:"Country",
+                name:"country",
                 visible: true,
                 editable: true,
             }
