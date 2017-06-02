@@ -51,8 +51,7 @@
                             <span v-if="!column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-else
                                 :entry="entry"
-                                :columnname="column.name"
-                                :value="entry[column.name]"></value-field-section>
+                                :columnname="column.name"></value-field-section>
                         </td>
                     </tr>
                 </tbody>
@@ -186,32 +185,34 @@
 
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
-      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ value }} </span>'+
+      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField">{{this.entry[this.columnname]}}</span>'+
           '<div v-if="enabled" class="input-group">'+
-          '  <input type="text" class="form-control" v-model="value" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
+          '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
           '  <span class="input-group-btn">'+
           '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
           '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
           '  </span>'+
           '</div>',
-      props: ['entry','value','columnname'],
+      props: ['entry','columnname'],
       data: function () {
           return {
-            enabled: false,
+              enabled: false,
+              datavalue: "",
           }
       },
       methods: {
         saveThis: function () {
             var originalValue = this.entry[this.columnname];
-            this.entry[this.columnname] = this.value;
-            this.$dispatch('cellDataModifiedEvent', originalValue, this.value, this.columnname,  this.entry);
+            this.entry[this.columnname] = this.datavalue;
+            this.$dispatch('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);
             this.enabled = !this.enabled;
         },
         cancelThis: function () {
-            this.value = this.entry[this.column-name];
+            this.datavalue = this.entry[this.columnname];
             this.enabled = !this.enabled;
         },
         toggleInput: function () {
+            this.datavalue= this.entry[this.columnname];
             this.enabled=!this.enabled;
         },
       }
