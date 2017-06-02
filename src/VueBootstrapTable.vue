@@ -183,7 +183,9 @@
 
     import axios from 'axios';
     import qs from 'qs';
-    import lodash from 'lodash';
+    import lodashorderby from 'lodash.orderby';
+    import lodashincludes from 'lodash.includes';
+    import lodashfindindex from 'lodash.findindex';
 
 
     /* Field Section used for displaying and editing value of cell */
@@ -400,7 +402,7 @@
                 for(var i=0, len=this.sortKey.length; i < len; i++){
                     tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                 }
-                return _.orderBy(this.filteredValues, this.sortKey , tColsDir);
+                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);
             },
             validPageNumbers: function () {
                 // 5 page max
@@ -438,7 +440,7 @@
                     var result = this.values.filter(item => {
                                 var good = false;
                                 for (var col in self.displayColsVisible) {
-                                    if ( _.includes(item[self.displayColsVisible[col].name]+"" , self.filterKey+"")){
+                                    if ( lodashincludes(item[self.displayColsVisible[col].name]+"" , self.filterKey+"")){
                                         good = true;
                                     }
                                 }
@@ -450,7 +452,7 @@
                         tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                     }
 
-                    result = _.orderBy(result, this.sortKey, tColsDir);
+                    result = lodashorderby(result, this.sortKey, tColsDir);
 
                     this.filteredSize = result.length;
                     if (this.paginated) {
@@ -570,7 +572,7 @@
                             }
                         });
                     } else {
-                        if (_.findIndex(this.sortKey, function(o) { return o === key; }) === -1) {
+                        if (lodashfindindex(this.sortKey, function(o) { return o === key; }) === -1) {
                             this.sortKey.push(key);
                         }
                     }
@@ -592,7 +594,7 @@
                     /*if (this.sortKey === key) {
                         classes.push("active");
                     }*/
-                    if (_.findIndex(this.sortKey, function(o) { return o === key; }) !== -1) {
+                    if (lodashfindindex(this.sortKey, function(o) { return o === key; }) !== -1) {
                         classes.push("active");
                     }
 
