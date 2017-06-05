@@ -3,7 +3,7 @@ Vue.config.devtools = true;
 
 import VueBootstrapTable from './VueBootstrapTable.vue';
 
-var renderfu = function (entry) {
+var renderfu = function ( colname, entry) {
     return '<div class="btn-group" role="group" >'+
         '  <button type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
         '  <button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+

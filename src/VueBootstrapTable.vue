@@ -48,7 +48,7 @@
                     <tr v-for="entry in filteredValuesSorted " track-by="$index">
                         <td v-for="column in displayColsVisible" track-by="$index"
                             v-show="column.visible"  :class="column.cellstyle">
-                            <span v-if="column.renderfunction!==false" v-html="column.renderfunction( entry )"></span>
+                            <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
                             <span v-if="column.renderfunction===false && !column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-if="column.renderfunction===false && column.editable"
                                 :entry="entry"
