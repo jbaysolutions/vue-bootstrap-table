@@ -512,10 +512,14 @@
                 if (this.ajax.enabled && this.ajax.method === "GET") {
                     axios.get(self.ajax.url, ajaxParameters )
                         .then(response => {
-                            if (response.data.echo === self.echo) {
-                                dataCallBackFunction(response.data);
-                                this.$dispatch('ajaxLoadedEvent', response.data);
+                            if (this.ajax.delegate) {
+                                if (response.data.echo !== self.echo) {
+                                    return;
+                                }
                             }
+
+                            dataCallBackFunction(response.data);
+                            this.$dispatch('ajaxLoadedEvent', response.data);
                         })
                         .catch(e => {
                             this.$dispatch('ajaxLoadingError', e);
@@ -524,10 +528,14 @@
                 if (this.ajax.enabled && this.ajax.method === "POST") {
                     axios.post(self.ajax.url, qs.stringify(ajaxParameters) )
                         .then(response => {
-                            if (response.data.echo === self.echo) {
-                                dataCallBackFunction(response.data);
-                                this.$dispatch('ajaxLoadedEvent', response.data);
+                            if (this.ajax.delegate) {
+                                if (response.data.echo !== self.echo) {
+                                    return;
+                                }
                             }
+
+                            dataCallBackFunction(response.data);
+                            this.$dispatch('ajaxLoadedEvent', response.data);
                         })
                         .catch(e => {
                             this.$dispatch('ajaxLoadingError', e);
