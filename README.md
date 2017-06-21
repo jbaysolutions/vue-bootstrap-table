@@ -2,7 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 1 : 1.1.4
+### VUE 1 : 1.1.5
 
 ### Vue 2 : [jbaysolutions/vue2-bootstrap-table](https://github.com/jbaysolutions/vue2-bootstrap-table)
 
@@ -281,6 +281,36 @@ There must be a javascript function called `renderTestColumn`  :
 </script>
 ```
 
+### ROW Click Handler
+
+To add a Row click handler function:
+
+````html
+
+    <vue-bootstrap-table
+            [...]
+            :row-click-handler=handleRowFunction
+    >
+    </vue-bootstrap-table>
+````
+
+On your Vue instance :
+
+````javascript
+data: {
+        handleRowFunction: handleRow,
+}
+````
+
+And have the javascript function declared like so:
+
+````javascript
+var handleRow = function (event, entry) {
+    console.log("CLICK ROW: " + JSON.stringify(entry));
+};
+````
+
+Where event in the `MouseEvent` and `entry` e the complete entry corresponding to the row.
 
 ### AJAX Configuration
 
@@ -431,6 +461,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.5
+
+* Row Click Handler added
 
 ### 1.1.4
 
