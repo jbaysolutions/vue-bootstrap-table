@@ -31,6 +31,11 @@ new Vue({
             url: "http://localhost:9430/data/test",
             method: "POST",
             delegate: true,
+            axiosConfig:{
+                headers: {
+                    'Authorization': 'Bearer TESTTESTTESTTESTTEST'
+                }
+            }
         },
         columns: [
             {

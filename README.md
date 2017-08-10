@@ -2,7 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 1 : 1.1.6
+### VUE 1 : 1.1.7
 
 ### Vue 2 : [jbaysolutions/vue2-bootstrap-table](https://github.com/jbaysolutions/vue2-bootstrap-table)
 
@@ -219,6 +219,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
                     url: "",
                     method: "GET",
                     delegate: false,
+                    axiosConfig: {}
                 }
             }
         },
@@ -329,7 +330,7 @@ Ajax Object properties:
 * url: the URL where to request the data
 * methods: GET and POST are the valid methods allowed
 * delegate: False = just get all the data and do processing on browser;  True = Ask for data as needed, and all processing is done on the server side.
-
+* axiosConfig: check [Axios Page](https://github.com/mzabriskie/axios) for information regarding Method Config.
 
 #### Example AJAX config for Remote Loading
 
@@ -341,6 +342,7 @@ ajax: {
     url: "http://localhost:9430/data/test",
     method: "GET",
     delegate: false,
+    axiosConfig: {}
 },
 ```
 
@@ -354,6 +356,11 @@ ajax: {
     url: "http://localhost:9430/data/test",
     method: "GET",
     delegate: true,
+    axiosConfig: {
+        headers: {
+            'Authorization': 'Bearer TESTTESTTESTTESTTEST'
+        }
+    }
 },
 ```
 
@@ -470,6 +477,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.7
+
+* Allowing Axios configuration to be passed for the requests
 
 ### 1.1.6
 
