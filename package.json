@@ -26,7 +26,7 @@
   "author": "Gustavo Santos (JBay Solutions) <gustavo.santos@jbaysolutions.com> (http://www.jbaysolutions.com)",
   "dependencies": {
     "babel-runtime": "^6.0.0",
-    "axios": "^0.16.1",
+    "axios": "^0.19.0",
     "qs": "^6.0.0",
     "lodash.orderby": "^4.6.0",
     "lodash.findindex": "^4.6.0",
